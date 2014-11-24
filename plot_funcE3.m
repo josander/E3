@@ -29,9 +29,15 @@ subplot(2,2,4)
 hist(distData(1:10000,4));
 
 %% Task 4
+clc
+clf
+clear all
 
 data = importdata('MC.txt');
 
-c = xcorr(data);
+[corr,lags] = xcorr(data);
 
-plot(c);
+corr = gather(corr);
+
+subplot(1,1,1)
+plot(lags, corr);

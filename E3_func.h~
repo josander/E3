@@ -7,6 +7,6 @@ E3_func.h
 
 extern void integral_uniform();
 extern void integral_sine();
-extern void integral_markov();
+extern void integral_metropolis();
 
 #endif
