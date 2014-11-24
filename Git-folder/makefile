@@ -1,0 +1,23 @@
+
+CC = gcc
+CFLAGS = -O3
+LIBS = -lm -lgsl -lgslcblas
+
+
+HEADERS = E3_func.h
+OBJECTS = E3_func.o E3.o 
+PROGRAM = E3
+
+%.o: %.c $(HEADERS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+all: $(PROGRAM)
+
+$(PROGRAM): $(OBJECTS)
+	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
+
+clean:
+	rm -f *.o
+	touch *.c
+
+
