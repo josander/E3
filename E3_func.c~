@@ -79,7 +79,7 @@ void integral_sine(){
 		// Calculate the integral
 		for(j = 0; j < N; j++){
 
-			// Random numbers with sinusiodal distribution
+			// Random numbers with  a sinusiodal distribution
 			x[i][j] = ((double) rand()/ (double) RAND_MAX);
 			x[i][j] = acos(1 - 2 * x[i][j])/PI;
 
@@ -121,8 +121,8 @@ void integral_metropolis(){
 	double delta;
 
 	// Open a file to print the variable x in
-	FILE *y_file;
-	y_file = fopen("distMetropolis.data","w");
+	FILE *m_file;
+	m_file = fopen("metropolis.data","w");
 
 	// Print the expected value of the integral
 	printf("METROPOLIS: Expected value: %.8F ± %.8F \n", (double) 1/6, 0.03726852);
@@ -134,11 +134,14 @@ void integral_metropolis(){
 		sum = 0;
 		sum2 = 0;
 		var = 0;
+		x[i][0] = 0;
+		delta = 1;
 		
 		// Calculate the integral
-		for(j = 0; j < N; j++){
+		for(j = 1; j < N; j++){
 
-			x[i][j] = (double) sin(PI*j/N);
+			r = (double) rand() / (double) RAND_MAX;
+			x[i][j] = x[i][j-1] + delta*(r - 0.5);
 			sum += x[i][j]*(1-x[i][j]);
 			sum2 += x[i][j]*(1-x[i][j]) * x[i][j]*(1-x[i][j]);
 
@@ -156,11 +159,11 @@ void integral_metropolis(){
 
 	// Print x to distribution.data
 	for(j = 0; j < N; j++){
-		fprintf(y_file,"%F \t %F \t %F \t %F \n", x[0][j], x[1][j], x[2][j], x[3][j]);
+		fprintf(m_file,"%F \t %F \t %F \t %F \n", x[0][j], x[1][j], x[2][j], x[3][j]);
 	}
 
 	// Close the data-file
-	fclose(y_file); 
+	fclose(m_file); 
 
 }
 
